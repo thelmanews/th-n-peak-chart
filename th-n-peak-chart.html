@@ -30,6 +30,10 @@
           box-sizing: border-box;
         }
 
+        .touched {      
+          opacity: 1;
+        }
+
       </style>
 
       <svg id="chart"></svg>
@@ -110,7 +114,15 @@
               .attr('fill', function(d,i){ return polymerObj.colors.accents[i]; })
               .attr('stroke', function(d,i){ return polymerObj.colors.accents[i]; })
               .style('fill', function(d,i){ return polymerObj.chartData[i].color })
-              .style('stroke', function(d,i){ return polymerObj.chartData[i].color });
+              .style('stroke', function(d,i){ return polymerObj.chartData[i].color })
+              .on('down', function(e){
+                console.log(e);
+                d3.select(this).classed('touched', true);
+              })
+              .on('up', function(){
+                d3.select(this).classed('touched', false);
+              });
+
 
           if (polymerObj.wrapLabels){
             polymerObj.labels = polymerObj.container.selectAll('.label')
