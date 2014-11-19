@@ -86,13 +86,6 @@
 
           polymerObj.svg = d3.select(polymerObj.$.chart);
 
-
-          // add more colors if there are more bars than colors
-          while (polymerObj.chartData.length > polymerObj.colors.count) {
-            polymerObj.addMoreColors(polymerObj);
-          }
-
-
           polymerObj.container = polymerObj.svg
               .selectAll('.container')
               .data([1])
@@ -111,10 +104,6 @@
               .attr('class', function(d,i){return "peak data"+i;})
               .attr('d', polymerObj.peakLineStart)
               .attr('opacity', 0)
-              .attr('fill', function(d,i){ return polymerObj.colors.accents[i]; })
-              .attr('stroke', function(d,i){ return polymerObj.colors.accents[i]; })
-              .style('fill', function(d,i){ return polymerObj.chartData[i].color })
-              .style('stroke', function(d,i){ return polymerObj.chartData[i].color })
               .on('down', function(e){
                 console.log(e);
                 d3.select(this).classed('touched', true);
@@ -136,8 +125,7 @@
                   })
                 .append("foreignObject")
                 .append('xhtml:div')
-                  .attr('class', function(d,i){return "label wrapped-labels data"+i;})
-                  .attr('color', function(d,i){ return polymerObj.colors.accents[i]; });
+                  .attr('class', function(d,i){return "label wrapped-labels data"+i;});
 
               polymerObj.labelGroups = polymerObj.labels.select(function(){return this.parentNode.parentNode;}).attr('class', 'labelg');
             
@@ -146,10 +134,6 @@
               .data(polymerObj.chartData)
               .enter().append('text')
                 .attr('class', function(d,i){return "label no-stroke data"+i;})
-                .attr('fill', function(d,i){ return polymerObj.colors.accents[i]; })
-                .attr('stroke', function(d,i){ return polymerObj.colors.accents[i]; })
-                .style('fill', function(d){ return d.color })
-                .style('stroke', function(d){ return d.color })
                 .attr('transform', function(d,i){
                   var xPos = (barDims.width/2) + (barDims.width - barDims.widthOverlap)*i;
                   var yPos = polymerObj.dims.height + polymerObj.dims.margin.label;
@@ -163,11 +147,7 @@
             .data(polymerObj.chartData)
             .enter().append('text')
               .attr('class', function(d,i){return "value data"+i;})
-              .attr('y', polymerObj.dims.height)
-              .attr('fill', function(d,i){ return polymerObj.colors.accents[i]; })
-              .attr('stroke', function(d,i){ return polymerObj.colors.accents[i]; })
-              .style('fill', function(d){ return d.color })
-              .style('stroke', function(d){ return d.color });
+              .attr('y', polymerObj.dims.height);
               
         },
         staticObj._setupContainerSize = function(polymerObj){ //
@@ -193,6 +173,12 @@
 
           staticObj._setupContainerSize(polymerObj);
 
+           // add more colors if there are more bars than colors
+          while (polymerObj.chartData.length > polymerObj.colors.count) {
+            polymerObj.addMoreColors(polymerObj);
+          }
+
+
           // starting and ending lines to draw peaks
 
           polymerObj.peakLine = d3.svg.line()
@@ -200,6 +186,8 @@
               .y(function(d) { return -d.y; });    
 
           polymerObj.peaks
+            .attr('fill', function(d,i){ return polymerObj.colors.accents[i]; })
+            .attr('stroke', function(d,i){ return polymerObj.colors.accents[i]; })  
             .style('fill', function(d,i){ return polymerObj.chartData[i].color })
             .style('stroke', function(d,i){ return polymerObj.chartData[i].color })
             .data(peakData);
@@ -211,11 +199,14 @@
             
             polymerObj.labels
               .attr("class", function(d,i){return "label wrapped-labels data"+i;})
+              .attr('color', function(d,i){ return polymerObj.colors.accents[i]; })
               .style('color', function(d){ return d.color })
               .html(function(d) {return d.label;});
 
           } else {
             polymerObj.labels
+                .attr('fill', function(d,i){ return polymerObj.colors.accents[i]; })
+                .attr('stroke', function(d,i){ return polymerObj.colors.accents[i]; })
                 .style('fill', function(d){ return d.color })
                 .style('stroke', function(d){ return d.color })
                 .attr('text-anchor', function(){ return labelDims.angle > 0 ? "left" : "middle"})
@@ -223,8 +214,10 @@
           }
            
           polymerObj.values
-              .style('fill', function(d,i){ return polymerObj.chartData[i].color })
-              .style('stroke', function(d,i){ return polymerObj.chartData[i].color })
+              .attr('fill', function(d,i){ return polymerObj.colors.accents[i]; })
+              .attr('stroke', function(d,i){ return polymerObj.colors.accents[i]; })
+              .style('fill', function(d){ return d.color })
+              .style('stroke', function(d){ return d.color })
               .attr('text-anchor','middle')
               .attr('font-size', valueDims.size)
               .text(function(d) {return d.display_value ? d.display_value : d.value ;});
