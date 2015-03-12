@@ -1,8 +1,8 @@
 {
-  "name": "th-n-peak-chart",
+  "name": "lens-viz-peak-chart",
   "version": "0.0.0",
-  "keywords": "seed, polymer, web-components",
-  "main": "th-n-peak-chart.html",
+  "keywords": "lenses, polymer, web-components",
+  "main": "lens-viz-peak-chart.html",
   "dependencies": {
     "polymer": "Polymer/polymer#~0.5.1",
     "th-d3-chart": "https://github.com/thelmanews/th-d3-chart.git"

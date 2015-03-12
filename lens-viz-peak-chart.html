@@ -1,7 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../th-d3-chart/th-d3-chart.html">
 
-<polymer-element name="th-n-peak-chart" extends="th-d3-chart" attributes="wrapLabels input">
+<polymer-element name="lens-viz-peak-chart" extends="th-d3-chart" attributes="wrapLabels input">
 
   <template>
       <core-style ref="theme"></core-style>
@@ -228,7 +228,7 @@
       
       // Adding private static methods.
 
-      Polymer('th-n-peak-chart', {
+      Polymer('lens-viz-peak-chart', {
         chartData: [
           {label: 'Platinum', value: 50, display_value: '', color:''},
           {label: 'Gold', value: 45, display_value: '', color:''},
@@ -450,7 +450,7 @@
 
           getMetaData: function() {
             return {
-            "name": "th-n-peak-chart",
+            "name": "lens-viz-peak-chart",
             "description": "Thelma n peak chart",
             "category":"chart",
             "version": "0.0.1",
