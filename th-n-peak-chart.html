@@ -207,9 +207,9 @@
           } else {
             polymerObj.labels
                 .attr('fill', function(d,i){ return polymerObj.colors.accents[i]; })
-                .attr('stroke', function(d,i){ return polymerObj.colors.accents[i]; })
+                // .attr('stroke', function(d,i){ return polymerObj.colors.accents[i]; })
                 .style('fill', function(d){ return d.color })
-                .style('stroke', function(d){ return d.color })
+                // .style('stroke', function(d){ return d.color })
                 .attr('text-anchor', function(){ return labelDims.angle > 0 ? "left" : "middle"})
                 .text(function(d) {return d.label;});
           }
@@ -383,7 +383,7 @@
             } else {
               self.labels.enter().append('text').attr('class',function(d,i){return "label no-stroke data"+i;})
                 .style('fill', function(d){ return d.color })
-                .style('stroke', function(d){ return d.color })
+                // .style('stroke', function(d){ return d.color })
                 .attr('transform', function(d,i){
                   var xPos = (barDims.width/2) + (barDims.width - barDims.widthOverlap)*i;
                   var yPos = height + self.dims.margin.label;
